@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mathesis — 数学と向き合う記録</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@400;500&display=swap');
+
+    :root {
+      --bg-deep:    #1B3A6B;
+      --bg-mid:     #2C5282;
+      --cream:      #F5F0E0;
+      --cream-dark: #EDE6CE;
+      --green:      #8BBF4D;
+      --green-dark: #6A9A30;
+      --text-dark:  #1A2A1A;
+      --text-muted: #4A5568;
+      --white:      #FFFFFF;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg-deep);
+      font-family: 'Noto Sans JP', sans-serif;
+      color: var(--cream);
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background-color: var(--bg-mid);
+      border-bottom: 2px solid var(--green);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-logo {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--cream);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+    }
+
+    .nav-logo span {
+      color: var(--green);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--cream);
+      text-decoration: none;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+      padding-bottom: 2px;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--green);
+      border-bottom-color: var(--green);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 5rem 2rem 4rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-symbols {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4rem;
+      font-size: 8rem;
+      color: rgba(255,255,255,0.04);
+      font-family: 'Georgia', serif;
+      pointer-events: none;
+      letter-spacing: 0.5rem;
+      user-select: none;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.8rem;
+      letter-spacing: 0.3em;
+      color: var(--green);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .hero-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      color: var(--cream);
+      line-height: 1.3;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-title em {
+      font-style: normal;
+      color: var(--green);
+    }
+
+    .hero-sub {
+      font-size: 1rem;
+      color: rgba(245, 240, 224, 0.75);
+      max-width: 480px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.8;
+    }
+
+    .hero-formula {
+      display: inline-block;
+      background: rgba(139, 191, 77, 0.12);
+      border: 1px solid rgba(139, 191, 77, 0.4);
+      border-radius: 6px;
+      padding: 0.6rem 1.4rem;
+      font-family: 'Georgia', serif;
+      font-size: 1.1rem;
+      color: var(--green);
+      letter-spacing: 0.08em;
+    }
+
+    /* ── MAIN GRID ── */
+    .main {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 3rem 2rem 5rem;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      color: var(--green);
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(139, 191, 77, 0.3);
+    }
+
+    /* ── CARDS ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .card {
+      background: var(--cream);
+      color: var(--text-dark);
+      border-radius: 10px;
+      padding: 1.8rem;
+      text-decoration: none;
+      display: block;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+    }
+
+    .card-symbol {
+      font-family: 'Georgia', serif;
+      font-size: 3rem;
+      color: rgba(27, 58, 107, 0.12);
+      position: absolute;
+      top: 0.8rem;
+      right: 1.2rem;
+      line-height: 1;
+      user-select: none;
+    }
+
+    .card-tag {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      color: var(--green-dark);
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+    }
+
+    .card-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--bg-deep);
+      margin-bottom: 0.6rem;
+      line-height: 1.4;
+    }
+
+    .card-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .card-arrow {
+      display: inline-block;
+      margin-top: 1rem;
+      font-size: 0.82rem;
+      color: var(--green-dark);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── RECENT POSTS (Blog preview) ── */
+    .posts-box {
+      background: var(--cream);
+      border-radius: 10px;
+      padding: 1.8rem 2rem;
+      color: var(--text-dark);
+      margin-bottom: 3rem;
+    }
+
+    .posts-box-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--bg-deep);
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 1px solid var(--cream-dark);
+    }
+
+    .post-item {
+      display: flex;
+      align-items: baseline;
+      gap: 1.2rem;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      text-decoration: none;
+      color: inherit;
+      transition: color 0.15s;
+    }
+
+    .post-item:last-child { border-bottom: none; }
+
+    .post-item:hover .post-text { color: var(--bg-deep); }
+
+    .post-date {
+      font-size: 0.78rem;
+      color: var(--green-dark);
+      font-weight: 700;
+      white-space: nowrap;
+      font-family: 'Georgia', serif;
+      letter-spacing: 0.03em;
+    }
+
+    .post-text {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      transition: color 0.15s;
+    }
+
+    /* ── ABOUT BOX ── */
+    .about-strip {
+      background: var(--bg-mid);
+      border: 1px solid rgba(139, 191, 77, 0.3);
+      border-radius: 10px;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .about-icon {
+      font-family: 'Georgia', serif;
+      font-size: 2.5rem;
+      color: var(--green);
+      flex-shrink: 0;
+    }
+
+    .about-text p {
+      font-size: 0.9rem;
+      color: rgba(245,240,224,0.8);
+      line-height: 1.8;
+      margin-bottom: 0.6rem;
+    }
+
+    .about-text a {
+      font-size: 0.82rem;
+      color: var(--green);
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+
+    .about-text a:hover { text-decoration: underline; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.78rem;
+      color: rgba(245,240,224,0.35);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .hero-symbols { font-size: 5rem; gap: 2rem; }
+      .about-strip { flex-direction: column; gap: 1rem; }
+      .nav-links { gap: 1rem; }
+      .nav-links a { font-size: 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="index.html">Math<span>esis</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="column.html">Column</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-symbols">∑ ∫ √ π</div>
+    <p class="hero-eyebrow">Mathematics Study Journal</p>
+    <h1 class="hero-title">数学と、<em>誠実に</em>向き合う。</h1>
+    <p class="hero-sub">
+      わからなくて当たり前。でもわかった瞬間が好きだから、続けている。<br>
+      このサイトは、そんな学習の記録です。
+    </p>
+    <div class="hero-formula">∀ε &gt; 0, ∃δ &gt; 0 : |x − a| &lt; δ ⟹ |f(x) − L| &lt; ε</div>
+  </section>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- ページ案内カード -->
+    <div class="section-label">Pages</div>
+    <div class="card-grid">
+
+      <a class="card" href="blog.html">
+        <div class="card-symbol">∂</div>
+        <div class="card-tag">Study Log</div>
+        <div class="card-title">学習ブログ</div>
+        <div class="card-desc">日々の勉強の進捗をひとことで記録。どこで詰まって、何がわかったか。</div>
+        <div class="card-arrow">読む →</div>
+      </a>
+
+      <a class="card" href="column.html">
+        <div class="card-symbol">∞</div>
+        <div class="card-tag">Column</div>
+        <div class="card-title">コラム & イラスト</div>
+        <div class="card-desc">数学にまつわる4コマ漫画、イラスト、そして小論文形式の読み物を置く場所。</div>
+        <div class="card-arrow">見る →</div>
+      </a>
+
+      <a class="card" href="about.html">
+        <div class="card-symbol">≡</div>
+        <div class="card-tag">Profile</div>
+        <div class="card-title">このサイトについて</div>
+        <div class="card-desc">運営者の自己紹介と、このサイトを始めた理由。数学との出会い直し。</div>
+        <div class="card-arrow">知る →</div>
+      </a>
+
+    </div>
+
+    <!-- 最近の記録 -->
+    <div class="section-label">Recent Log</div>
+    <div class="posts-box">
+      <div class="posts-box-title">最近の学習記録</div>
+      <a class="post-item" href="blog.html">
+        <span class="post-date">2025.06.10</span>
+        <span class="post-text">ε-δ論法の証明をようやく自力で書けた気がする</span>
+      </a>
+      <a class="post-item" href="blog.html">
+        <span class="post-date">2025.06.07</span>
+        <span class="post-text">積分の置換の符号でまた間違えた。符号は命。</span>
+      </a>
+      <a class="post-item" href="blog.html">
+        <span class="post-date">2025.06.03</span>
+        <span class="post-text">極限の「収束」という言葉の意味をちゃんと理解していなかったと気づいた</span>
+      </a>
+      <a class="post-item" href="blog.html">
+        <span class="post-date">2025.05.29</span>
+        <span class="post-text">テイラー展開、美しすぎる。なんで今まで敬遠してたんだろう</span>
+      </a>
+    </div>
+
+    <!-- 自己紹介ひとこと -->
+    <div class="section-label">About</div>
+    <div class="about-strip">
+      <div class="about-icon">π</div>
+      <div class="about-text">
+        <p>
+          数学を学び直している人間の記録サイトです。<br>
+          理解したこと、躓いたこと、感動したこと——すべて正直に書いていきます。
+        </p>
+        <a href="about.html">もっと詳しく →</a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    &copy; 2025 Mathesis &nbsp;|&nbsp; Mathematics Study Journal
+  </footer>
+
+</body>
+</html>
