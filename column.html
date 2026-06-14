@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>コラム — Mathesis</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@400;500&display=swap');
+
+    :root {
+      --bg-deep:    #1B3A6B;
+      --bg-mid:     #2C5282;
+      --cream:      #F5F0E0;
+      --cream-dark: #EDE6CE;
+      --green:      #8BBF4D;
+      --green-dark: #6A9A30;
+      --text-dark:  #1A2A1A;
+      --text-muted: #4A5568;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg-deep);
+      font-family: 'Noto Sans JP', sans-serif;
+      color: var(--cream);
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background-color: var(--bg-mid);
+      border-bottom: 2px solid var(--green);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-logo {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--cream);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+    }
+    .nav-logo span { color: var(--green); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--cream);
+      text-decoration: none;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+      padding-bottom: 2px;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--green);
+      border-bottom-color: var(--green);
+    }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      padding: 3rem 2rem 2rem;
+      text-align: center;
+    }
+    .page-eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      color: var(--green);
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+    .page-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--cream);
+      margin-bottom: 0.5rem;
+    }
+    .page-desc {
+      font-size: 0.88rem;
+      color: rgba(245,240,224,0.6);
+    }
+
+    /* ── TABS ── */
+    .tabs {
+      max-width: 800px;
+      margin: 1.5rem auto 0;
+      padding: 0 2rem;
+      display: flex;
+      gap: 0.5rem;
+    }
+    .tab-btn {
+      background: transparent;
+      border: 1px solid rgba(139,191,77,0.35);
+      border-radius: 20px;
+      color: rgba(245,240,224,0.65);
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 0.82rem;
+      padding: 0.4rem 1.1rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      letter-spacing: 0.05em;
+    }
+    .tab-btn:hover {
+      border-color: var(--green);
+      color: var(--green);
+    }
+    .tab-btn.active {
+      background: var(--green);
+      border-color: var(--green);
+      color: var(--bg-deep);
+      font-weight: 700;
+    }
+
+    /* ── MAIN ── */
+    .main {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 2rem 5rem;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      color: var(--green);
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(139,191,77,0.3);
+    }
+
+    /* ── ILLUSTRATION GRID ── */
+    .illust-section { margin-bottom: 3.5rem; }
+
+    .illust-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .illust-card {
+      background: var(--cream);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .illust-thumb {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background: var(--cream-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Georgia', serif;
+      font-size: 3rem;
+      color: rgba(27,58,107,0.2);
+    }
+
+    .illust-caption {
+      padding: 0.6rem 0.8rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .illust-caption strong {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--text-dark);
+      margin-bottom: 0.15rem;
+    }
+
+    /* ── ARTICLE CARDS ── */
+    .article-section { margin-bottom: 3.5rem; }
+
+    .article-card {
+      background: var(--cream);
+      border-radius: 10px;
+      padding: 1.8rem 2rem;
+      color: var(--text-dark);
+      margin-bottom: 1.2rem;
+    }
+
+    .article-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .article-date {
+      font-family: 'Georgia', serif;
+      font-size: 0.78rem;
+      color: var(--green-dark);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .article-tag {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      background: rgba(27,58,107,0.1);
+      color: var(--bg-mid);
+      padding: 0.15rem 0.6rem;
+      border-radius: 20px;
+      font-weight: 700;
+    }
+
+    .article-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--bg-deep);
+      margin-bottom: 0.8rem;
+      line-height: 1.5;
+    }
+
+    .article-body {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.9;
+    }
+
+    .article-body p { margin-bottom: 0.8rem; }
+    .article-body p:last-child { margin-bottom: 0; }
+
+    .article-body .math-inline {
+      font-family: 'Georgia', serif;
+      background: rgba(27,58,107,0.07);
+      padding: 0.1rem 0.4rem;
+      border-radius: 3px;
+      font-size: 0.95em;
+      color: var(--bg-deep);
+    }
+
+    .read-more {
+      display: inline-block;
+      margin-top: 1rem;
+      font-size: 0.82rem;
+      color: var(--green-dark);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      cursor: default;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.78rem;
+      color: rgba(245,240,224,0.35);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── JS HIDE/SHOW ── */
+    .tab-section { display: none; }
+    .tab-section.visible { display: block; }
+
+    @media (max-width: 600px) {
+      .nav-links { gap: 1rem; }
+      .nav-links a { font-size: 0.8rem; }
+      .illust-grid { grid-template-columns: repeat(2, 1fr); }
+      .article-card { padding: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="index.html">Math<span>esis</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="column.html" class="active">Column</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-header">
+    <p class="page-eyebrow">Column</p>
+    <h1 class="page-title">コラム & イラスト</h1>
+    <p class="page-desc">数学にまつわる漫画・イラストと、ちょっとした読み物。</p>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showTab('illust', this)">イラスト・漫画</button>
+    <button class="tab-btn" onclick="showTab('article', this)">記事・コラム</button>
+  </div>
+
+  <main class="main">
+
+    <!-- イラスト・漫画タブ -->
+    <div id="tab-illust" class="tab-section visible">
+      <div class="illust-section">
+        <div class="section-label">Illustration & Comics</div>
+        <div class="illust-grid">
+
+          <div class="illust-card">
+            <div class="illust-thumb">∫</div>
+            <div class="illust-caption">
+              <strong>積分くんの憂鬱</strong>
+              4コマ / 2025.06.01
+            </div>
+          </div>
+
+          <div class="illust-card">
+            <div class="illust-thumb">π</div>
+            <div class="illust-caption">
+              <strong>πは無理数</strong>
+              イラスト / 2025.05.20
+            </div>
+          </div>
+
+          <div class="illust-card">
+            <div class="illust-thumb">∞</div>
+            <div class="illust-caption">
+              <strong>無限の友達</strong>
+              4コマ / 2025.05.10
+            </div>
+          </div>
+
+          <div class="illust-card">
+            <div class="illust-thumb">√</div>
+            <div class="illust-caption">
+              <strong>ルートちゃん</strong>
+              キャラクター / 2025.04.28
+            </div>
+          </div>
+
+          <div class="illust-card">
+            <div class="illust-thumb">∑</div>
+            <div class="illust-caption">
+              <strong>シグマ先生の授業</strong>
+              4コマ / 2025.04.15
+            </div>
+          </div>
+
+          <div class="illust-card">
+            <div class="illust-thumb">θ</div>
+            <div class="illust-caption">
+              <strong>θとsinの関係</strong>
+              イラスト / 2025.04.03
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- 記事タブ -->
+    <div id="tab-article" class="tab-section">
+      <div class="article-section">
+        <div class="section-label">Articles</div>
+
+        <div class="article-card">
+          <div class="article-meta">
+            <span class="article-date">2025.06.05</span>
+            <span class="article-tag">エッセイ</span>
+          </div>
+          <div class="article-title">「わかった」と「解けた」は違う</div>
+          <div class="article-body">
+            <p>数学の勉強をしていると、「解けた」という感覚と「わかった」という感覚が、まったく別物だということに気づく。</p>
+            <p>たとえば、<span class="math-inline">sin²x + cos²x = 1</span> という公式は、中学で「解ける」ようになる。しかし単位円の上で点が動くさまを頭の中で描けるようになって初めて、「わかった」と言える気がする。</p>
+            <p>解法を覚えることと、構造を理解することは別の行為だ。でも多くの場合、前者から入って後者に到達する。その過程を記録しておきたいと思って、このサイトを始めた。</p>
+          </div>
+        </div>
+
+        <div class="article-card">
+          <div class="article-meta">
+            <span class="article-date">2025.05.18</span>
+            <span class="article-tag">コラム</span>
+          </div>
+          <div class="article-title">数学が「美しい」とはどういうことか</div>
+          <div class="article-body">
+            <p>数学者がよく「美しい証明」と言う。最初は意味がわからなかった。数式のどこに美しさがあるのか。</p>
+            <p>オイラーの等式 <span class="math-inline">e^{iπ} + 1 = 0</span> を初めて見たとき、自分には何も感じなかった。それが今は、少しだけわかるような気がしている。</p>
+            <p>美しさとはたぶん、「なぜここにこれが現れるのか」という驚きと、「そうでなければならなかった」という必然性が同時に感じられることだと思う。まだ半分も理解していないけれど。</p>
+          </div>
+        </div>
+
+        <div class="article-card">
+          <div class="article-meta">
+            <span class="article-date">2025.04.22</span>
+            <span class="article-tag">エッセイ</span>
+          </div>
+          <div class="article-title">なぜ大人になってから数学を学び直すのか</div>
+          <div class="article-body">
+            <p>学生のころ、数学はただの試験科目だった。公式を覚えて、問題を解いて、点数を取る。その繰り返しで、数学が何を言おうとしているのか、一度も考えたことがなかった。</p>
+            <p>大人になってから本を読んでいるなかで、数学的な考え方が随所に出てくることに気づいた。論理の構造、量の比較、変化の記述。数学は世界を記述する言語だと、ようやくわかった。</p>
+            <p>遅いかもしれない。でも遅くてもやる理由は、今のほうがずっと「なぜ」を大切にして読めるからだと思っている。</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    &copy; 2025 Mathesis &nbsp;|&nbsp; Mathematics Study Journal
+  </footer>
+
+  <script>
+    function showTab(name, btn) {
+      document.querySelectorAll('.tab-section').forEach(s => s.classList.remove('visible'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('tab-' + name).classList.add('visible');
+      btn.classList.add('active');
+    }
+  </script>
+
+</body>
+</html>
