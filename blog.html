@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>学習ブログ — Mathesis</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@400;500&display=swap');
+
+    :root {
+      --bg-deep:    #1B3A6B;
+      --bg-mid:     #2C5282;
+      --cream:      #F5F0E0;
+      --cream-dark: #EDE6CE;
+      --green:      #8BBF4D;
+      --green-dark: #6A9A30;
+      --text-dark:  #1A2A1A;
+      --text-muted: #4A5568;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg-deep);
+      font-family: 'Noto Sans JP', sans-serif;
+      color: var(--cream);
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background-color: var(--bg-mid);
+      border-bottom: 2px solid var(--green);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-logo {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--cream);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+    }
+    .nav-logo span { color: var(--green); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--cream);
+      text-decoration: none;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+      padding-bottom: 2px;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--green);
+      border-bottom-color: var(--green);
+    }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      padding: 3rem 2rem 2rem;
+      text-align: center;
+    }
+    .page-eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      color: var(--green);
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+    .page-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--cream);
+    }
+
+    /* ── FEED ── */
+    .feed {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 1rem 2rem 5rem;
+    }
+
+    .feed-item {
+      display: flex;
+      gap: 1rem;
+      padding: 1.1rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .feed-item:last-child { border-bottom: none; }
+
+    .feed-date {
+      font-family: 'Georgia', serif;
+      font-size: 0.78rem;
+      color: var(--green);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+      padding-top: 0.15rem;
+      min-width: 80px;
+    }
+
+    .feed-text {
+      font-size: 0.95rem;
+      color: var(--cream);
+      line-height: 1.75;
+      opacity: 0.88;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.78rem;
+      color: rgba(245,240,224,0.35);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      letter-spacing: 0.05em;
+    }
+
+    @media (max-width: 600px) {
+      .nav-links { gap: 1rem; }
+      .nav-links a { font-size: 0.8rem; }
+      .feed-item { flex-direction: column; gap: 0.3rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="index.html">Math<span>esis</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="blog.html" class="active">Blog</a></li>
+      <li><a href="column.html">Column</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-header">
+    <p class="page-eyebrow">Study Log</p>
+    <h1 class="page-title">学習ブログ</h1>
+  </div>
+
+  <div class="feed">
+
+    <div class="feed-item">
+      <span class="feed-date">2025.06.10</span>
+      <span class="feed-text">ε-δ論法の証明をようやく自力で書けた気がする</span>
+    </div>
+
+    <div class="feed-item">
+      <span class="feed-date">2025.06.07</span>
+      <span class="feed-text">積分の置換の符号でまた間違えた。符号は命。</span>
+    </div>
+
+    <div class="feed-item">
+      <span class="feed-date">2025.06.03</span>
+      <span class="feed-text">極限の「収束」という言葉の意味をちゃんと理解していなかったと気づいた</span>
+    </div>
+
+    <div class="feed-item">
+      <span class="feed-date">2025.05.29</span>
+      <span class="feed-text">テイラー展開、美しすぎる。なんで今まで敬遠してたんだろう</span>
+    </div>
+
+    <div class="feed-item">
+      <span class="feed-date">2025.05.24</span>
+      <span class="feed-text">行列の積が可換でない理由を図で考えたら腑に落ちた</span>
+    </div>
+
+    <div class="feed-item">
+      <span class="feed-date">2025.05.19</span>
+      <span class="feed-text">微分の定義式を暗唱できるようになった。意味も理解した（たぶん）</span>
+    </div>
+
+    <div class="feed-item">
+      <span class="feed-date">2025.05.14</span>
+      <span class="feed-text">対数の底の変換公式、毎回忘れる。今日こそ定着させたい</span>
+    </div>
+
+    <div class="feed-item">
+      <span class="feed-date">2025.05.09</span>
+      <span class="feed-text">数列と級数の違いをきちんと言語化できた。当たり前のことがわかってなかった</span>
+    </div>
+
+  </div>
+
+  <footer>
+    &copy; 2025 Mathesis &nbsp;|&nbsp; Mathematics Study Journal
+  </footer>
+
+</body>
+</html>
